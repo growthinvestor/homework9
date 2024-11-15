@@ -68,10 +68,9 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Trivy GitHub Auth
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo $GITHUB_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      # Authenticate to GitHub Container Registry (ghcr.io) to avoid rate limits
+      - name: Authenticate to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Cache Trivy database
         uses: actions/cache@v3
