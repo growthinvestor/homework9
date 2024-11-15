@@ -1,5 +1,27 @@
 # RestAPI for Creating QR Codes
 
+# My assignment generated QR code successfully along with successfully authentication
+
+(venv) ajaswal@AJ:~/projects/qr_code_api_broken_code$ docker compose exec fastapi pytest
+WARN[0000] /home/ajaswal/projects/qr_code_api_broken_code/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+=============================================== test session starts ================================================
+platform linux -- Python 3.12.7, pytest-8.1.1, pluggy-1.4.0 -- /usr/local/bin/python3.12
+cachedir: .pytest_cache
+rootdir: /myapp
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.3.0, asyncio-0.23.6, mock-3.14.0
+asyncio: mode=Mode.STRICT
+collected 3 items                                                                                                  
+
+tests/start_test.py::test_login_for_access_token PASSED                                                      [ 33%]
+tests/start_test.py::test_create_qr_code_unauthorized PASSED                                                 [ 66%]
+tests/start_test.py::test_create_and_delete_qr_code PASSED                                                   [100%]
+
+================================================ 3 passed in 0.06s =================================================
+(venv) ajaswal@AJ:~/projects/qr_code_api_broken_code$ 
+
+
 For this assignment I want you to go over the videos and I've created a X number of errors in the code that you will have to find and fix them.  You should keep running the tests and read the error and try to understand what it mean.  The purpose of this assignment is to get you accustomed to running the project and following the steps that the program uses to process requests.
 
 Here is my repo with the working code: [https://github.com/kaw393939/fastapi_spring2024](https://github.com/kaw393939/fastapi_spring2024)
