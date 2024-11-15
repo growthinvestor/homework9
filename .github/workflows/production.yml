@@ -84,10 +84,13 @@ jobs:
       - name: Create Trivy cache directory
         run: |
           mkdir -p ~/.cache/trivy/db
+          ls -la ~/.cache/trivy
 
-      - name: Download Trivy Database
+      - name: Debug Trivy database download
         run: |
-          wget -q -O ~/.cache/trivy/db/trivy.db https://github.com/aquasecurity/trivy-db/releases/latest/download/trivy.db
+          echo "Attempting to download Trivy database..."
+          wget --debug -O ~/.cache/trivy/db/trivy.db https://github.com/aquasecurity/trivy-db/releases/latest/download/trivy.db
+          ls -la ~/.cache/trivy/db
 
       - name: Scan the Docker image with Trivy
         uses: aquasecurity/trivy-action@master
