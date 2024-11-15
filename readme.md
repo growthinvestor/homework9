@@ -1,5 +1,3 @@
-# RestAPI for Creating QR Codes
-
 # My assignment generated QR code successfully along with successfully authentication
 
 (venv) ajaswal@AJ:~/projects/qr_code_api_broken_code$ docker compose exec fastapi pytest
