@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.10.12] # Define Python versions here
+        python-version: [3.10.12]
     steps:
       - uses: actions/checkout@v4
       
@@ -58,16 +58,14 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: amanjaswal/homework9:${{ github.sha }} # Updated to use your DockerHub repo
-          platforms: linux/amd64,linux/arm64 # Multi-platform support
-          cache-from: type=registry,ref=amanjaswal/homework9:cache
-          cache-to: type=inline,mode=max
+          tags: amanjaswal/homework9:${{ github.sha }}
+          platforms: linux/amd64,linux/arm64
           
       - name: Scan the Docker image
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'amanjaswal/homework9:${{ github.sha }}'
           format: 'table'
-          exit-code: '1' # Fail the job if vulnerabilities are found
+          exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
