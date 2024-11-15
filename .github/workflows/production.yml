@@ -72,6 +72,11 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     steps:
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+          echo "Trivy installed successfully"
+
       - name: Authenticate to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -90,6 +95,6 @@ jobs:
 
       - name: Run Trivy scan
         run: |
-          trivy image --skip-update --cache-dir ~/.cache/trivy amanjaswal/homework9:${{ github.sha }}
+          ./trivy image --skip-update --cache-dir ~/.cache/trivy amanjaswal/homework9:${{ github.sha }}
         env:
           TRIVY_CACHE_DIR: ~/.cache/trivy
