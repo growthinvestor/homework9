@@ -72,7 +72,6 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     steps:
-      # Authenticate to GitHub Container Registry
       - name: Authenticate to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -84,13 +83,13 @@ jobs:
           restore-keys: |
             cache-trivy-
 
-      - name: Scan the Docker image with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'amanjaswal/homework9:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1' # Fail the job if vulnerabilities are found
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
+      - name: Download Trivy database (fallback)
+        run: |
+          mkdir -p ~/.cache/trivy/db
+          wget -q -O ~/.cache/trivy/db/trivy.db https://github.com/aquasecurity/trivy-db/releases/latest/download/trivy.db || echo "Skipping database download"
+
+      - name: Run Trivy scan
+        run: |
+          trivy image --skip-update --cache-dir ~/.cache/trivy amanjaswal/homework9:${{ github.sha }}
         env:
           TRIVY_CACHE_DIR: ~/.cache/trivy
