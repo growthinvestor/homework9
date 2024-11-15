@@ -72,18 +72,11 @@ jobs:
       - name: Authenticate to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Create Trivy Cache Directory
-        run: mkdir -p $HOME/.cache/trivy/db
-
       - name: Cache Trivy database
         uses: actions/cache@v3
         with:
           path: ~/.cache/trivy
           key: ${{ runner.os }}-trivy-db
-
-      - name: Download Trivy DB
-        run: |
-          wget -q -O $HOME/.cache/trivy/db/trivy.db https://github.com/aquasecurity/trivy-db/releases/latest/download/trivy.db
 
       - name: Scan the Docker image with Trivy
         uses: aquasecurity/trivy-action@master
@@ -93,5 +86,3 @@ jobs:
           exit-code: '1' # Fail the job if vulnerabilities are found
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
-        env:
-          TRIVY_CACHE_DIR: $HOME/.cache/trivy
