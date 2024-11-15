@@ -3,7 +3,6 @@
 # My assignment generated QR code successfully along with successfully authentication
 
 (venv) ajaswal@AJ:~/projects/qr_code_api_broken_code$ docker compose exec fastapi pytest
-WARN[0000] /home/ajaswal/projects/qr_code_api_broken_code/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
 =============================================== test session starts ================================================
 platform linux -- Python 3.12.7, pytest-8.1.1, pluggy-1.4.0 -- /usr/local/bin/python3.12
 cachedir: .pytest_cache
